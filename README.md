@@ -2,7 +2,7 @@
 
 A full-stack machine learning project that predicts employee salaries based on demographic and professional attributes — trained with scikit-learn, served through a FastAPI backend, and paired with an interactive web frontend for real-time predictions.
 
-Unlike a typical notebook-only ML project, this repo goes a step further: it packages the trained model as a real, callable REST API with input validation and request logging — demonstrating how a model actually gets deployed in a production system.
+Unlike a typical notebook-only ML project, this repo goes a step further: it packages the trained model as a real, callable REST API with input validation and request logging — demonstrating how a model actually gets deployed in a productions system.
 
 ---
 
@@ -171,7 +171,3 @@ See the [Contributing guide](../../wiki/Contributing) for more details.
 | _Nishrit Kashyap_ | [@nishritkashyap](https://github.com/nishritkashyap) | 
 
 ---
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
