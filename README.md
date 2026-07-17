@@ -170,8 +170,3 @@ See the [Contributing guide](../../wiki/Contributing) for more details.
 | _yuvrajjit baruah_ | [@yuvrajjitbaruah](https://github.com/yuvrajjitbaruah) | 
 | _Nishrit Kashyap_ | [@nishritkashyap](https://github.com/nishritkashyap) | 
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
