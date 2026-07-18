@@ -42,3 +42,23 @@ next-env.d.ts
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# ---------- Python / FastAPI backend ----------
+
+# virtual environment
+.venv/
+venv/
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# PyCharm
+.idea/
+
+# local databases (leftover from old SQLite testing, not used with Supabase)
+*.db
+
+# NOTE: salary_model.pkl, scaler.pkl, model_columns.pkl, model_info.pkl
+# are intentionally NOT ignored — they are committed to the repo on purpose.
