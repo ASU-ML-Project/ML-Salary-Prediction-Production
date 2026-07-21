@@ -6,6 +6,10 @@
   <title>Salary Predict — ML-Powered Salary Estimator</title>
   <meta name="description" content="A single-page Swiss editorial salary prediction tool powered by FastAPI, Next.js, and Supabase.">
   <link rel="stylesheet" href="styles.css">
+  <!-- React & Recharts CDN for client rendering -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
 </head>
 <body>
   <!-- Fixed Film-Grain Noise Overlay -->
@@ -61,7 +65,7 @@
       <!-- Band 3: Bottom Index Table -->
       <div class="hero-index">
         <div class="hero-index-head">
-          <span class="label">Index — 01 / 06 Inputs</span>
+          <span class="label">Index — 01 / 05 Inputs</span>
           <span class="label">Scroll ↓</span>
         </div>
         <ul class="ix-list">
@@ -75,34 +79,27 @@
           <li>
             <a href="#predict" class="ix">
               <span class="ix-num">02</span>
-              <span class="ix-title">Gender</span>
-              <span class="ix-meta">Categorical</span>
-            </a>
-          </li>
-          <li>
-            <a href="#predict" class="ix">
-              <span class="ix-num">03</span>
               <span class="ix-title">Education Level</span>
               <span class="ix-meta">Categorical</span>
             </a>
           </li>
           <li>
             <a href="#predict" class="ix">
-              <span class="ix-num">04</span>
+              <span class="ix-num">03</span>
               <span class="ix-title">Job Title</span>
               <span class="ix-meta">Categorical · Top 20 + Other</span>
             </a>
           </li>
           <li>
             <a href="#predict" class="ix">
-              <span class="ix-num">05</span>
+              <span class="ix-num">04</span>
               <span class="ix-title">Years of Experience</span>
               <span class="ix-meta">Numeric · 0–50</span>
             </a>
           </li>
           <li>
             <a href="#predict" class="ix">
-              <span class="ix-num">06</span>
+              <span class="ix-num">05</span>
               <span class="ix-title">Predicted Salary</span>
               <span class="ix-meta">Model Output</span>
             </a>
@@ -130,15 +127,6 @@
         <div class="pred-row">
           <label for="age" class="pred-label">Age</label>
           <input type="number" id="age" name="age" min="18" max="70" value="28" class="pred-input" required>
-        </div>
-
-        <div class="pred-row">
-          <label for="gender" class="pred-label">Gender</label>
-          <select id="gender" name="gender" class="pred-select" required>
-            <option value="Male" selected>Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
         </div>
 
         <div class="pred-row">
@@ -183,6 +171,7 @@
         <p class="pred-result-label">Estimated Salary</p>
         <div id="salary-value" class="pred-result-number">₹0</div>
         <p class="pred-result-caveat">Model estimate, not a guarantee — mean error ≈ ₹11,000.</p>
+        <a href="#" id="export-report-btn" class="export-report-link">Export Report ↓</a>
       </div>
     </section>
 
@@ -215,6 +204,12 @@
           <b>Random Forest</b>
           <span>Algorithm</span>
         </div>
+      </div>
+
+      <!-- R² Score Chart Container -->
+      <div class="chart-wrapper">
+        <div class="chart-caption label">R² by Model</div>
+        <div id="r2-chart-root" class="chart-container"></div>
       </div>
 
       <!-- Pipeline Step List -->
@@ -253,12 +248,22 @@
         <span class="label">System Notes</span>
       </div>
 
-      <figure class="quote">
-        <caption>
-          <blockquote>"Every prediction this model makes is one number standing in for eleven thousand real salaries — a shortcut, not a certainty."</blockquote>
-        </caption>
-        <figcaption>System Note — Prediction Engine</figcaption>
-      </figure>
+      <!-- Wave Motion Panel with Pull Quote -->
+      <div class="wave-panel">
+        <div id="waves-root" class="waves-layer"></div>
+        <figure class="quote quote-inverted">
+          <caption>
+            <blockquote>"Every prediction this model makes is one number standing in for eleven thousand real salaries — a shortcut, not a certainty."</blockquote>
+          </caption>
+          <figcaption>System Note — Prediction Engine</figcaption>
+        </figure>
+      </div>
+
+      <!-- Predictions Over Time Chart Container -->
+      <div class="chart-wrapper">
+        <div class="chart-caption label">Predictions Over Time</div>
+        <div id="stats-chart-root" class="chart-container"></div>
+      </div>
 
       <!-- Tech Stack Grid -->
       <div class="stack">
@@ -321,6 +326,22 @@
       </div>
     </div>
   </footer>
+
+  <!-- EXPORT REPORT MODAL -->
+  <div id="export-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button type="button" id="modal-close" class="modal-close" aria-label="Close modal">×</button>
+      <h3 id="modal-title" class="modal-title">Send Report</h3>
+      <form id="export-form" class="modal-form">
+        <div class="modal-input-wrap">
+          <label for="export-email" class="pred-label">Email Address</label>
+          <input type="email" id="export-email" name="email" class="pred-input" placeholder="user@example.com" required>
+        </div>
+        <button type="submit" id="export-submit-btn" class="pred-submit modal-submit">Send to Email →</button>
+      </form>
+      <p class="modal-helper">Includes your estimate, the model stats, and both charts.</p>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
