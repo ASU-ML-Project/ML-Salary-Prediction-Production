@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salary Predict — ML-Powered Salary Estimator</title>
+  <meta name="description" content="A single-page Swiss editorial salary prediction tool powered by FastAPI, Next.js, and Supabase.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fixed Film-Grain Noise Overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Sticky Top Navigation -->
+  <header class="nav">
+    <a href="#hero" class="nav-brand">Salary Predict — ML API</a>
+    <nav aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="#predict" class="nav-link">Predict</a></li>
+        <li><a href="#model" class="nav-link">Model</a></li>
+        <li><a href="#insights" class="nav-link">Insights</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <p class="nav-status"><i id="api-dot">●</i> <span id="api-status-text">API — Live</span></p>
+  </header>
+
+  <main>
+    <!-- 00. HERO SECTION -->
+    <section id="hero" class="container hero">
+      <!-- Band 1: Top Meta Bar -->
+      <div class="hero-meta">
+        <span class="label m-l">Student Project / Full-Stack ML</span>
+        <span class="label m-c">FastAPI · Next.js · Supabase</span>
+        <span class="label m-r">Salary Model / v1.0 2026</span>
+      </div>
+
+      <!-- Band 2: Centre Core -->
+      <div class="hero-core">
+        <svg class="asterisk-svg" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g stroke="#0a0a0a" stroke-width="2.5">
+            <line x1="22" y1="3" x2="22" y2="41"/>
+            <line x1="3" y1="22" x2="41" y2="22"/>
+            <line x1="8.6" y1="8.6" x2="35.4" y2="35.4"/>
+            <line x1="35.4" y1="8.6" x2="8.6" y2="35.4"/>
+          </g>
+        </svg>
+
+        <div class="stmt-wrap">
+          <h1 class="stmt" aria-label="Predict the Market Value.">
+            <span class="line-wrap"><span class="reveal reveal1" aria-hidden="true">Predict the</span><span class="cbar caret1" aria-hidden="true"></span></span><br>
+            <span class="line-wrap"><span class="reveal reveal2" aria-hidden="true">Market Value.</span><span class="cbar caret2" aria-hidden="true"></span></span>
+          </h1>
+        </div>
+
+        <p class="hero-bio">
+          An ML-powered salary estimator trained on real compensation data, served through a FastAPI backend and logged to Supabase — from raw records to a live prediction in one form.
+        </p>
+      </div>
+
+      <!-- Band 3: Bottom Index Table -->
+      <div class="hero-index">
+        <div class="hero-index-head">
+          <span class="label">Index — 01 / 06 Inputs</span>
+          <span class="label">Scroll ↓</span>
+        </div>
+        <ul class="ix-list">
+          <li>
+            <a href="#predict" class="ix">
+              <span class="ix-num">01</span>
+              <span class="ix-title">Age</span>
+              <span class="ix-meta">Numeric · 18–70</span>
+            </a>
+          </li>
+          <li>
+            <a href="#predict" class="ix">
+              <span class="ix-num">02</span>
+              <span class="ix-title">Gender</span>
+              <span class="ix-meta">Categorical</span>
+            </a>
+          </li>
+          <li>
+            <a href="#predict" class="ix">
+              <span class="ix-num">03</span>
+              <span class="ix-title">Education Level</span>
+              <span class="ix-meta">Categorical</span>
+            </a>
+          </li>
+          <li>
+            <a href="#predict" class="ix">
+              <span class="ix-num">04</span>
+              <span class="ix-title">Job Title</span>
+              <span class="ix-meta">Categorical · Top 20 + Other</span>
+            </a>
+          </li>
+          <li>
+            <a href="#predict" class="ix">
+              <span class="ix-num">05</span>
+              <span class="ix-title">Years of Experience</span>
+              <span class="ix-meta">Numeric · 0–50</span>
+            </a>
+          </li>
+          <li>
+            <a href="#predict" class="ix">
+              <span class="ix-num">06</span>
+              <span class="ix-title">Predicted Salary</span>
+              <span class="ix-meta">Model Output</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MARQUEE STRIP -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-content">Random Forest Model ✳ FastAPI Backend ✳ Supabase Logging ✳ Next.js Frontend ✳ Live Predictions ✳&nbsp;</span>
+        <span class="marquee-content">Random Forest Model ✳ FastAPI Backend ✳ Supabase Logging ✳ Next.js Frontend ✳ Live Predictions ✳&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- 01. PREDICT SECTION -->
+    <section id="predict" class="container main-sec">
+      <div class="sec-head">
+        <h2>01 — Get an Estimate</h2>
+        <span class="label">Live Model</span>
+      </div>
+
+      <form id="salary-form" class="pred-form">
+        <div class="pred-row">
+          <label for="age" class="pred-label">Age</label>
+          <input type="number" id="age" name="age" min="18" max="70" value="28" class="pred-input" required>
+        </div>
+
+        <div class="pred-row">
+          <label for="gender" class="pred-label">Gender</label>
+          <select id="gender" name="gender" class="pred-select" required>
+            <option value="Male" selected>Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="pred-row">
+          <label for="education_level" class="pred-label">Education Level</label>
+          <select id="education_level" name="education_level" class="pred-select" required>
+            <option value="Bachelor's" selected>Bachelor's Degree</option>
+            <option value="Master's">Master's Degree</option>
+            <option value="PhD">PhD</option>
+            <option value="High School">High School</option>
+          </select>
+        </div>
+
+        <div class="pred-row">
+          <label for="job_title" class="pred-label">Job Title</label>
+          <select id="job_title" name="job_title" class="pred-select" required>
+            <option value="Software Engineer" selected>Software Engineer</option>
+            <option value="Data Scientist">Data Scientist</option>
+            <option value="Product Manager">Product Manager</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Financial Analyst">Financial Analyst</option>
+            <option value="Marketing Manager">Marketing Manager</option>
+            <option value="Sales Executive">Sales Executive</option>
+            <option value="HR Manager">HR Manager</option>
+            <option value="Mechanical Engineer">Mechanical Engineer</option>
+            <option value="DevOps Engineer">DevOps Engineer</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="pred-row">
+          <label for="years_experience" class="pred-label">Years of Experience</label>
+          <input type="number" id="years_experience" name="years_experience" min="0" max="50" step="0.5" value="5" class="pred-input" required>
+        </div>
+
+        <div class="pred-submit-wrap">
+          <button type="submit" id="submit-btn" class="pred-submit">Run Prediction →</button>
+        </div>
+      </form>
+
+      <!-- RESULT PANEL (hidden until calculated) -->
+      <div id="result-panel" class="pred-result" aria-live="polite">
+        <p class="pred-result-label">Estimated Salary</p>
+        <div id="salary-value" class="pred-result-number">₹0</div>
+        <p class="pred-result-caveat">Model estimate, not a guarantee — mean error ≈ ₹11,000.</p>
+      </div>
+    </section>
+
+    <!-- 02. MODEL SECTION -->
+    <section id="model" class="container main-sec">
+      <div class="sec-head">
+        <h2>02 — Model</h2>
+        <span class="label">How it Works</span>
+      </div>
+
+      <p class="model-stmt">
+        Thousands of raw salary records, reduced to the <span class="o">features that actually move the number.</span>
+      </p>
+
+      <!-- Stats Strip -->
+      <div class="stats">
+        <div class="stat">
+          <b>0.893</b>
+          <span>R² Score</span>
+        </div>
+        <div class="stat">
+          <b>₹11,011</b>
+          <span>Mean Absolute Error</span>
+        </div>
+        <div class="stat">
+          <b>1,792</b>
+          <span>Training Rows</span>
+        </div>
+        <div class="stat">
+          <b>Random Forest</b>
+          <span>Algorithm</span>
+        </div>
+      </div>
+
+      <!-- Pipeline Step List -->
+      <ul class="pipeline">
+        <li>
+          <em>Data Cleaning</em>
+          <i>01 — Duplicates & label fixes</i>
+        </li>
+        <li>
+          <em>Feature Encoding</em>
+          <i>02 — One-hot categorical inputs</i>
+        </li>
+        <li>
+          <em>Train/Test Split</em>
+          <i>03 — Held-out evaluation set</i>
+        </li>
+        <li>
+          <em>Model Selection</em>
+          <i>04 — Linear Regression vs Random Forest</i>
+        </li>
+        <li>
+          <em>Hyperparameter Tuning</em>
+          <i>05 — Cross-validated</i>
+        </li>
+        <li>
+          <em>Deployment</em>
+          <i>06 — FastAPI + Supabase logging</i>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 03. INSIGHTS SECTION -->
+    <section id="insights" class="container main-sec">
+      <div class="sec-head">
+        <h2>03 — Insights</h2>
+        <span class="label">System Notes</span>
+      </div>
+
+      <figure class="quote">
+        <caption>
+          <blockquote>"Every prediction this model makes is one number standing in for eleven thousand real salaries — a shortcut, not a certainty."</blockquote>
+        </caption>
+        <figcaption>System Note — Prediction Engine</figcaption>
+      </figure>
+
+      <!-- Tech Stack Grid -->
+      <div class="stack">
+        <div class="stack-cell">FastAPI</div>
+        <div class="stack-cell">Next.js</div>
+        <div class="stack-cell">Supabase</div>
+        <div class="stack-cell">scikit-learn</div>
+        <div class="stack-cell">Pydantic</div>
+        <div class="stack-cell">Random Forest</div>
+        <div class="stack-cell">Python</div>
+        <div class="stack-cell">Uvicorn</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 04. FOOTER -->
+  <footer id="contact">
+    <div class="container">
+      <p class="foot-kicker">04 — Contact · Open Source</p>
+      
+      <h2 class="foot-display">
+        Type it<br>
+        <span class="ow">in, get</span><br>
+        a number.
+      </h2>
+
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="foot-link">View the Source ↗</a>
+
+      <div class="foot-grid">
+        <div class="foot-col">
+          <h3>Project</h3>
+          <ul>
+            <li><a href="#predict">Live Demo ↗</a></li>
+            <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub Repo ↗</a></li>
+            <li><a href="/docs" target="_blank" rel="noopener noreferrer">API Docs ↗</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>Stack</h3>
+          <ul>
+            <li>FastAPI</li>
+            <li>Next.js</li>
+            <li>Supabase</li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>Colophon</h3>
+          <ul>
+            <li>Trained on 6,700+ salary records.</li>
+            <li>Two colours. No exceptions.</li>
+            <li>Built as a full-stack ML capstone.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="foot-legal">
+        <span>© 2026 Salary Predict</span>
+        <span>A model is a guess with good manners</span>
+        <span>Assam — India</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
